@@ -1,0 +1,102 @@
+//utara
+int merahU = 2;
+int kuningU = 3;
+int hijauU = 4;
+
+//timur
+int merahT = 5;
+int kuningT = 6;
+int hijauT = 7;
+
+//selatan
+int merahS = 8;
+int kuningS = 9;
+int hijauS = 10;
+
+//barat
+int merahB = 11;
+int kuningB = 12;
+int hijauB = 13;
+
+void setup() {
+  for (int i = 2; i <= 13; i++) {
+    pinMode(i, OUTPUT);
+  }
+}
+
+void loop() {
+
+  semuaMerah();
+  digitalWrite(merahU, LOW);
+  digitalWrite(hijauU, HIGH);
+  delay(5000);
+
+  transisi(kuningU, kuningT, hijauU, merahU, merahT);
+  digitalWrite(merahU, HIGH);
+  digitalWrite(merahT, LOW);
+  digitalWrite(hijauT, HIGH);
+
+  delay(5000);
+
+  transisi(kuningT, kuningS, hijauT, merahT, merahS);
+  digitalWrite(merahT, HIGH);
+  digitalWrite(merahS, LOW);
+  digitalWrite(hijauS, HIGH);
+
+  delay(5000);
+
+  transisi(kuningS, kuningB, hijauS, merahS, merahB);
+  digitalWrite(merahS, HIGH);
+  digitalWrite(merahB, LOW);
+  digitalWrite(hijauB, HIGH);
+
+  delay(5000);
+
+  transisi(kuningB, kuningU, hijauB, merahB, merahU);
+  digitalWrite(merahB, HIGH);
+  digitalWrite(merahB, LOW);
+  digitalWrite(hijauU, HIGH);
+}
+
+void semuaMerah() {
+  digitalWrite(merahU, HIGH);
+  digitalWrite(kuningU, LOW);
+  digitalWrite(hijauU, LOW);
+
+  digitalWrite(merahT, HIGH);
+  digitalWrite(kuningT, LOW);
+  digitalWrite(hijauT, LOW);
+
+  digitalWrite(merahS, HIGH);
+  digitalWrite(kuningS, LOW);
+  digitalWrite(hijauS, LOW);
+
+  digitalWrite(merahB, HIGH);
+  digitalWrite(kuningB, LOW);
+  digitalWrite(hijauB, LOW);
+}
+
+void transisi(int dari_kuning, int ke_kuning, int dari_hijau, int dari_merah, int ke_merah) {
+
+  digitalWrite(dari_hijau, LOW);
+
+  digitalWrite(dari_merah, LOW);
+  digitalWrite(ke_merah, LOW);
+
+  for (int i = 0; i < 3; i++) {
+    digitalWrite(dari_kuning, HIGH);
+    digitalWrite(ke_kuning, HIGH);
+    delay(300);
+
+    digitalWrite(dari_kuning, LOW);
+    digitalWrite(ke_kuning, LOW);
+    delay(300);
+  }
+
+  digitalWrite(dari_kuning, HIGH);
+  digitalWrite(ke_kuning, HIGH);
+  delay(2000);
+
+  digitalWrite(dari_kuning, LOW);
+  digitalWrite(ke_kuning, LOW);
+}
